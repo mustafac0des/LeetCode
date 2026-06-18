@@ -1,20 +1,25 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
+        string = list(s)
+        substring = ""
+        final_substrings = []
 
-        string=list(s)
-        final_substrings=[]
-        substring=""
-        
         for i in range(len(string)):
-            if substring.find(string[i])!=-1:
+            if substring.find(string[i]) != -1:
                 final_substrings.append(substring)
-                substring=string[i]
+
+                cut_index = substring.find(string[i])
+                substring = substring[cut_index + 1:] + string[i]
+                
             else:
-                substring=substring+string[i]
+                substring = substring + string[i]
+        
+        final_substrings.append(substring)
 
-        result=1
-
+        result = 0
+        
         for i in final_substrings:
-            if len(i)>result: result=len(i)
+            if len(i) >= result: 
+                result = len(i)
         
         return result
